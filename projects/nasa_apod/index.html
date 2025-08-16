@@ -1,0 +1,30 @@
+<!doctype html><html lang='en'><head>
+<meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>NASA APOD Viewer</title><link rel='stylesheet' href='../../assets/css/style.css'></head><body>
+<header class='nav'><div class='container'><a class='brand' href='../../index.html'>← Back</a><div class='badge'>API</div></div></header>
+<section class='container prose'><h2>NASA Astronomy Picture of the Day</h2>
+<p>Fetch the daily space image using NASA's public API (DEMO_KEY). May be rate‑limited.</p>
+<div class='controls'><button class='btn' id='load'>Load Today</button></div>
+<div id='out' class='center'></div>
+
+  <h3>About this project</h3>
+  <p>Built for fast review: runs in-browser, no setup. Exposes parameters so you can see how outputs change. Ideal for technical screenings.</p>
+  <h3>What to try</h3>
+  <ul>
+    <li>Move sliders/inputs and observe the KPIs.</li>
+    <li>Stress-test extremes to see stability/limits.</li>
+    <li>Read the short math/logic note to understand the mechanism.</li>
+  </ul>
+
+</section>
+<footer><div class='container'>Contact: <a href='mailto:ambrosetheshield6@gmail.com'>ambrosetheshield6@gmail.com</a></div></footer>
+<script>
+document.getElementById('load').onclick=async()=>{
+  const out=document.getElementById('out'); out.textContent='Loading...';
+  try{
+    const r=await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY'); if(!r.ok) throw new Error('HTTP '+r.status);
+    const j=await r.json(); out.innerHTML=`<div class='prose'><h3>${j.title||''}</h3><img src='${j.url}' alt='APOD' class='img-frame' style='max-width:100%;height:auto'><p>${j.explanation||''}</p></div>`;
+  }catch(e){ out.textContent='Failed: '+e.message; }
+};
+</script>
+</body></html>

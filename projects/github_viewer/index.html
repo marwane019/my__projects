@@ -1,0 +1,45 @@
+<!doctype html><html lang='en'><head>
+<meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>GitHub Repo Viewer</title><link rel='stylesheet' href='../../assets/css/style.css'></head><body>
+<header class='nav'><div class='container'><a class='brand' href='../../index.html'>← Back</a><div class='badge'>API</div></div></header>
+<section class='container prose'><h2>GitHub Repo Viewer</h2>
+<p>Auto‑loads my repos for instant review. You can change the username if you want to inspect another profile.</p>
+<div class='controls'><input id='user' placeholder='GitHub username'><button class='btn' id='load'>Load</button></div>
+<ul id='list'></ul>
+<div id='details' class='prose'></div>
+<p class='note'>If rate‑limited, retry later. URL param <code>?user=NAME</code> also works.</p>
+
+  <h3>About this project</h3>
+  <p>Built for fast review: runs in-browser, no setup. Exposes parameters so you can see how outputs change. Ideal for technical screenings.</p>
+  <h3>What to try</h3>
+  <ul>
+    <li>Move sliders/inputs and observe the KPIs.</li>
+    <li>Stress-test extremes to see stability/limits.</li>
+    <li>Read the short math/logic note to understand the mechanism.</li>
+  </ul>
+
+</section>
+<footer><div class='container'>Contact: <a href='mailto:ambrosetheshield6@gmail.com'>ambrosetheshield6@gmail.com</a></div></footer>
+<script>
+async function getJSON(url){ const r=await fetch(url); if(!r.ok) throw new Error('HTTP '+r.status); return r.json();}
+document.getElementById('load').onclick=async()=>{
+  const u=document.getElementById('user').value.trim(); const list=document.getElementById('list'); list.innerHTML='Loading...';
+  try{ const repos=await getJSON(`https://api.github.com/users/${u}/repos?per_page=100`);
+    list.innerHTML=''; repos.forEach(rep=>{ const li=document.createElement('li'); const a=document.createElement('a'); a.href='#'; a.textContent=rep.name; a.onclick=()=>show(rep); li.appendChild(a); list.appendChild(li); });
+    if(repos.length===0) list.innerHTML='No public repos found.';
+  }catch(e){ list.innerHTML='Failed to load. '+e.message; }
+};
+async function show(rep){
+  const d=document.getElementById('details'); d.innerHTML='Loading...';
+  try{ const full=await (await fetch(`https://api.github.com/repos/${rep.full_name}`)).json();
+    d.innerHTML = `<p><strong>${full.full_name}</strong></p><p>⭐ ${full.stargazers_count} · 🍴 ${full.forks_count} · 🐞 ${full.open_issues_count}</p><p>${full.description||''}</p><p><a href='${full.html_url}' target='_blank' rel='noopener'>Open on GitHub</a></p>`;
+  }catch(e){ d.textContent='Failed: '+e.message; }
+}
+function param(name){ const m=new URLSearchParams(location.search).get(name); return m && m.trim(); }
+window.addEventListener('DOMContentLoaded', ()=>{
+  const input=document.getElementById('user'); const btn=document.getElementById('load');
+  const def= param('user') || 'marwane019'; // hard-set default
+  input.value = def; btn.click();
+});
+</script>
+</body></html>

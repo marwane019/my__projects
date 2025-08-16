@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marwane Bakkali Hassani — Portfolio</title>
+  <meta name="description" content="Data analysis + software engineering in the browser. 10+ interactive demos and integrations.">
+  <meta name="theme-color" content="#0a0f1a">
+  <link rel="manifest" href="manifest.json">
+  <meta property="og:title" content="Marwane — Portfolio">
+  <meta property="og:description" content="Clean ML, simulations, interactive demos, and integrations.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/thumb_nbody.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light')}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="container">
+    <div class="brand">Marwane Bakkali Hassani</div>
+    <div class="nav-actions"><button id="theme" class="btn" aria-label="Toggle theme">Theme</button></div>
+  </div>
+</header>
+
+<section class="hero container" id="main">
+  <p class="kicker">Portfolio</p>
+  <h1>Data Analysis × Software Engineering — interactive and reviewable.</h1>
+  <p>Everything runs in the browser (no installs). Each project page includes a short explanation and “What to try”.</p>
+  <div><span class="badge">Python</span><span class="badge">Canvas</span><span class="badge">NLP</span><span class="badge">APIs</span></div>
+</section>
+
+<section class="container">
+  <h2>Projects</h2>
+  <div class="grid">
+    <a class="card" href="projects/cmb_web/index.html"><img src="assets/images/thumb_cmb.png" alt="CMB"><h3>CMB Spectrum (Web)</h3><p>Interactive Sachs–Wolfe model; CSV export.</p></a>
+    <a class="card" href="projects/nbody_web/index.html"><img src="assets/images/thumb_nbody.png" alt="N‑Body"><h3>N‑Body Simulation (Web)</h3><p>Leapfrog particles; FPS & energy.</p></a>
+    <a class="card" href="projects/pathfinding/index.html"><img src="assets/images/thumb_path.png" alt="Pathfinding"><h3>Pathfinding Visualizer</h3><p>A* vs Dijkstra with explored/path.</p></a>
+    <a class="card" href="projects/jd_cv/index.html"><img src="assets/images/thumb_jd.png" alt="JD CV"><h3>JD ↔ CV Matcher</h3><p>Similarity & missing keywords.</p></a>
+    <a class="card" href="projects/exoplanet_habitability/index.html"><img src="assets/images/thumb_hab.png" alt="Hab"><h3>Exoplanet Habitability</h3><p>Temp/grav/score with orbit viz.</p></a>
+    <a class="card" href="projects/transit_sim/index.html"><img src="assets/images/thumb_transit.png" alt="Transit"><h3>Transit Lightcurve</h3><p>Brightness dip simulator.</p></a>
+    <a class="card" href="projects/dungeon_gen/index.html"><img src="assets/images/thumb_dungeon.png" alt="Dungeon"><h3>Procedural Dungeon</h3><p>Cellular automata generator.</p></a>
+    <a class="card" href="projects/github_viewer/index.html"><img src="assets/images/thumb_gh.png" alt="GitHub"><h3>GitHub Repo Viewer</h3><p>Auto‑loads my repos; stars/issues.</p></a>
+    <a class="card" href="projects/nasa_apod/index.html"><img src="assets/images/thumb_apod.png" alt="APOD"><h3>NASA APOD Viewer</h3><p>Daily space image via API.</p></a>
+    <a class="card" href="projects/open_meteo/index.html"><img src="assets/images/thumb_meteo.png" alt="Meteo"><h3>Open‑Meteo Chart</h3><p>48h temp chart from API.</p></a>
+    <a class="card" href="projects/spacex_launch/index.html"><img src="assets/images/thumb_spx.png" alt="SpaceX"><h3>SpaceX Next Launch</h3><p>Details + live countdown.</p></a>
+  </div>
+</section>
+
+<footer><div class="container">Contact: <a href="mailto:ambrosetheshield6@gmail.com">ambrosetheshield6@gmail.com</a> · © 2025</div></footer>
+<script>
+document.getElementById('theme').onclick = ()=>{
+  const root=document.documentElement;
+  root.classList.toggle('light');
+  localStorage.setItem('theme', root.classList.contains('light')?'light':'dark');
+};
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+</script>
+</body>
+</html>
